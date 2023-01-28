@@ -1,5 +1,6 @@
 package com.fastcampus.snsproject.model.entity;
 
+
 import com.fastcampus.snsproject.model.UserRole;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +15,7 @@ import java.time.Instant;
 @Table(name = "\"user\"")
 @Getter
 @Setter
-@SQLDelete(sql = "UPDATED \"user\" SET deleted_at = NOW() where id = ?")
+@SQLDelete(sql = "UPDATE \"user\" SET deleted_at = NOW() where id=?")
 @Where(clause = "deleted_at is NULL")
 public class UserEntity {
     @Id
@@ -41,12 +42,16 @@ public class UserEntity {
     private Timestamp deletedAt;
 
     @PrePersist
-    void registeredAt(){ this.registeredAt = Timestamp.from(Instant.now()); }
+    void registeredAt() {
+        this.registeredAt = Timestamp.from(Instant.now());
+    }
 
-    @PrePersist
-    void updatedAt(){ this.updatedAt = Timestamp.from(Instant.now()); }
+    @PreUpdate
+    void updatedAt() {
+        this.updatedAt = Timestamp.from(Instant.now());
+    }
 
-    public static UserEntity of(String userName, String password){
+    public static UserEntity of(String userName, String password) {
         UserEntity userEntity = new UserEntity();
         userEntity.setUserName(userName);
         userEntity.setPassword(password);

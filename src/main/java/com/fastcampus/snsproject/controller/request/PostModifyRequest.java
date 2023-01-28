@@ -1,15 +1,13 @@
 package com.fastcampus.snsproject.controller.request;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserJoinRequest {
+public class PostModifyRequest {
 
-    private String name;
-    private String password;
+    private String title;
+    private String body;
 }
