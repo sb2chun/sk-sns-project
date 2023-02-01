@@ -12,5 +12,4 @@ import org.springframework.stereotype.Repository;
 public interface PostEntityRepository extends JpaRepository<PostEntity, Integer> {
 
     Page<PostEntity> findAllByUser(UserEntity entity, Pageable pageable);
-
 }
