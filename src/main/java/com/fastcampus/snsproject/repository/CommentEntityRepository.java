@@ -21,4 +21,6 @@ public interface CommentEntityRepository extends JpaRepository<CommentEntity, In
     @Query("UPDATE CommentEntity entity SET deleted_at = NOW() where entity.post = :post")
     void deleteAllByPost(@Param("post") PostEntity postEntity);
 
+   //    void deleteAllByPost(PostEntity post);
+
 }

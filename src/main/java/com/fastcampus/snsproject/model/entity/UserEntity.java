@@ -12,10 +12,10 @@ import java.sql.Timestamp;
 import java.time.Instant;
 
 @Entity
-@Table(name = "\"user\"")
+@Table(name = "user")
 @Getter
 @Setter
-@SQLDelete(sql = "UPDATE \"user\" SET deleted_at = NOW() where id=?")
+@SQLDelete(sql = "UPDATE user SET deleted_at = sysdate() where id=?")
 @Where(clause = "deleted_at is NULL")
 public class UserEntity {
     @Id

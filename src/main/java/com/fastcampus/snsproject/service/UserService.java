@@ -5,7 +5,7 @@ import com.fastcampus.snsproject.exception.SnsApplicationException;
 import com.fastcampus.snsproject.model.Alarm;
 import com.fastcampus.snsproject.model.User;
 import com.fastcampus.snsproject.model.entity.UserEntity;
-import com.fastcampus.snsproject.repository.AlarmRepository;
+import com.fastcampus.snsproject.repository.AlarmEntityRepository;
 import com.fastcampus.snsproject.repository.UserEntityRepository;
 import com.fastcampus.snsproject.util.JwtTokenUtils;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ import javax.transaction.Transactional;
 public class UserService  {
 
     private final UserEntityRepository userEntityRepository;
-    private final AlarmRepository alarmRepository;
+    private final AlarmEntityRepository alarmRepository;
     private final BCryptPasswordEncoder encoder;
 
     @Value("${jwt.secret-key}")
@@ -65,10 +65,8 @@ public class UserService  {
                 new SnsApplicationException(ErrorCode.USER_NOT_FOUND, String.format("%s not founded", userName)));
     }
 
-    public Page<Alarm> alarmList(String userName, Pageable pageable) {
-        UserEntity userEntity = userEntityRepository.findByUserName(userName)
-                .orElseThrow(() -> new SnsApplicationException(ErrorCode.USER_NOT_FOUND, String.format("%s not founded", userName)));
+    public Page<Alarm> alarmList(Integer userId, Pageable pageable) {
 
-        return alarmRepository.findAllByUser(userEntity, pageable).map(Alarm::fromEntity);
+        return alarmRepository.findAllByUserId(userId, pageable).map(Alarm::fromEntity);
     }
 }
